@@ -1,0 +1,6 @@
+{
+  "name": "Plantation Drive Network",
+  "description": "An ecological restoration and community tree planting platform for students to start initiatives, locate required spots, track nurseries, and compete on contribution leaderboards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
