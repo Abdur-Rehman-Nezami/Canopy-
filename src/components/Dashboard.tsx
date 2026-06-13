@@ -186,19 +186,19 @@ export default function Dashboard({ drives, nurseries, currentUser, onJoinDrive,
             {
               name: 'Pongamia (Karanja)',
               desc: 'Extremely resilient soil restorer with beautiful lavender-hued blooms. Perfect for concrete boundaries, filters toxic diesel fumes.',
-              photo: 'https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?auto=format&fit=crop&q=80&w=600',
+              photo: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600',
               badge: 'Resilient Care'
             },
             {
               name: 'Jamun (Black Plum)',
               desc: 'Rapidly growing evergreen that provides thick fruit canopies. Re-invigorates lost urban sparrow populations and stabilizes water banks.',
-              photo: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=600',
+              photo: 'https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&q=80&w=600',
               badge: 'Bird Sanctuary Ally'
             },
             {
               name: 'Amaltas (Golden Shower)',
               desc: 'Stunning yellow cascades of cascading foliage. Rich in local pollen, bringing honeybee swarms and cooling localized micro-climates.',
-              photo: 'https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&q=80&w=600',
+              photo: 'https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&q=80&w=600',
               badge: 'Pollinator Magnet'
             }
           ].map((species, i) => (
