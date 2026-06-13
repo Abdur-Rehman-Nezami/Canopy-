@@ -361,8 +361,8 @@ export default function App() {
               <Leaf className="w-5 h-5" />
             </div>
             <div className="space-y-0 text-left">
-              <span id="brand-title" className="text-xl font-serif font-black tracking-tight text-emerald-500 block">Canopy</span>
-              <span className="text-[9px] font-mono text-[#8E9275] block tracking-widest font-semibold">CAMPUS RESTORE</span>
+              <span id="brand-title" className="text-xl font-serif font-black tracking-tight text-emerald-500 block">KARAM</span>
+              <span className="text-[9px] font-mono text-[#8E9275] block tracking-widest font-semibold">GREEN PROGRAM</span>
             </div>
           </div>
 
@@ -520,7 +520,7 @@ export default function App() {
               <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 <Leaf className="w-4 h-4" />
               </div>
-              <span className="text-xs font-mono tracking-wider font-extrabold uppercase text-neutral-300">Canopy Campus Restore</span>
+              <span className="text-xs font-mono tracking-wider font-extrabold uppercase text-neutral-300">KARAM Green Program</span>
             </div>
 
             {/* Bottom mini tabs navigation */}
