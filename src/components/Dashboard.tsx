@@ -379,7 +379,7 @@ export default function Dashboard({ drives, nurseries, currentUser, onJoinDrive,
             <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 font-bold block">Educational Reference Guide</span>
             <h2 className="text-xl font-serif font-bold text-neutral-800">Featured Indigenous Tree Species</h2>
           </div>
-          <span className="text-xs font-mono text-neutral-400 hidden sm:inline">Native to peninsular India, dry deciduous zones</span>
+          <span className="text-xs font-mono text-neutral-400 hidden sm:inline">Native to South Asia, dry deciduous zones</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

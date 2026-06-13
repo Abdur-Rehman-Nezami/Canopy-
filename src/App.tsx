@@ -93,7 +93,7 @@ export default function App() {
         // Self-corrective check if dataset was Bangalore-centric (e.g. custom check of user email or location)
         // If we locate old user name, we command an instant refresh reset!
         if (data.currentUser && (data.currentUser.name === 'Siddharth Sharma' || !data.teams || data.teams.length === 0)) {
-          console.log('Detected obsolete Indian mock data references. Dispatching automatic database reset synchronization...');
+          console.log('Detected obsolete mock data references. Dispatching automatic database reset synchronization...');
           const resetRes = await fetch('/api/reset', { method: 'POST' });
           if (resetRes.ok) {
             window.location.reload();
