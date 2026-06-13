@@ -155,7 +155,10 @@ const SEED_USERS = [
     volunteerHours: 36,
     badges: ["forest-pioneer", "water-guardian", "nursery-ally"],
     joinedDrives: ["drive_1", "drive_2"],
-    createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+    createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+    latitude: 31.478,
+    longitude: 74.298,
+    institution: "Punjab University Campus"
   },
   {
     userId: "student_2",
@@ -166,7 +169,10 @@ const SEED_USERS = [
     volunteerHours: 24,
     badges: ["forest-pioneer", "sapling-savior"],
     joinedDrives: ["drive_1"],
-    createdAt: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).toISOString()
+    createdAt: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000).toISOString(),
+    latitude: 31.470,
+    longitude: 74.410,
+    institution: "LUMS Lahore Campus"
   },
   {
     userId: "student_3",
@@ -177,7 +183,10 @@ const SEED_USERS = [
     volunteerHours: 58,
     badges: ["forest-founder", "ecosystem-hero", "water-guardian", "seed-sower"],
     joinedDrives: ["drive_1", "drive_3"],
-    createdAt: new Date(Date.now() - 40 * 24 * 60 * 60 * 1000).toISOString()
+    createdAt: new Date(Date.now() - 40 * 24 * 60 * 60 * 1000).toISOString(),
+    latitude: 31.558,
+    longitude: 74.325,
+    institution: "GCU Lahore"
   }
 ];
 

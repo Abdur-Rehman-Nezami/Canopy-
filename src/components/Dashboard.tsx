@@ -1,7 +1,28 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Search, PlusCircle, Leaf, Calendar, Users, Target, User, Heart, ChevronRight, X, AlertCircle } from 'lucide-react';
-import { PlantationDrive, NurseryData, StudentUser } from '../types';
+import { PlantationDrive, NurseryData, StudentUser, SEED_USERS } from '../types';
+
+const LAHORE_LANDMARKS = [
+  { name: 'Punjab University Campus', latitude: 31.478, longitude: 74.298 },
+  { name: 'Bagh-e-Jinnah (Botanical Reserve)', latitude: 31.545, longitude: 74.331 },
+  { name: 'Gymkhana Estate Mall Road', latitude: 31.540, longitude: 74.341 },
+  { name: 'Ravi River North Siphon Zone', latitude: 31.522, longitude: 74.360 },
+  { name: 'GCU Lahore Campus', latitude: 31.558, longitude: 74.325 },
+  { name: 'LUMS Campus / DHA Phase 5', latitude: 31.470, longitude: 74.410 },
+];
+
+const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+  const R = 6371; // km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return parseFloat((R * c).toFixed(2));
+};
 
 interface DashboardProps {
   drives: PlantationDrive[];
@@ -24,6 +45,49 @@ export default function Dashboard({ drives, nurseries, currentUser, onJoinDrive,
   const [latitude, setLatitude] = useState(12.971);
   const [longitude, setLongitude] = useState(77.594);
   const [errorMsg, setErrorMsg] = useState('');
+
+  // Nearest finder states
+  const [destinationName, setDestinationName] = useState('');
+  const [destLat, setDestLat] = useState('31.522');
+  const [destLng, setDestLng] = useState('74.360');
+  const [searchTriggered, setSearchTriggered] = useState(false);
+  const [nearbyNurseries, setNearbyNurseries] = useState<{ nursery: NurseryData; distance: number }[]>([]);
+  const [nearbyVolunteers, setNearbyVolunteers] = useState<{ user: StudentUser; distance: number }[]>([]);
+
+  const handleLandmarkSelect = (landmarkName: string) => {
+    const landmark = LAHORE_LANDMARKS.find(l => l.name === landmarkName);
+    if (landmark) {
+      setDestinationName(landmark.name);
+      setDestLat(landmark.latitude.toString());
+      setDestLng(landmark.longitude.toString());
+    } else if (landmarkName === 'custom') {
+      setDestinationName('Custom Coordinates');
+    }
+  };
+
+  const handleSearchNearby = () => {
+    const lat = parseFloat(destLat);
+    const lng = parseFloat(destLng);
+    if (isNaN(lat) || isNaN(lng)) return;
+
+    // Calculate distances to nurseries
+    const nurseriesWithDistance = nurseries.map(nursery => {
+      const dist = calculateDistance(lat, lng, nursery.latitude, nursery.longitude);
+      return { nursery, distance: dist };
+    }).sort((a, b) => a.distance - b.distance);
+
+    // Calculate distances to volunteers
+    const volunteersWithDistance = SEED_USERS.map(user => {
+      const uLat = user.latitude || 31.520;
+      const uLng = user.longitude || 74.350;
+      const dist = calculateDistance(lat, lng, uLat, uLng);
+      return { user, distance: dist };
+    }).sort((a, b) => a.distance - b.distance);
+
+    setNearbyNurseries(nurseriesWithDistance);
+    setNearbyVolunteers(volunteersWithDistance);
+    setSearchTriggered(true);
+  };
 
   const filteredDrives = drives.filter(d => 
     d.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -169,6 +233,143 @@ export default function Dashboard({ drives, nurseries, currentUser, onJoinDrive,
             </div>
           </motion.div>
         ))}
+      </div>
+
+      {/* Destination Resource & Volunteer Finder section */}
+      <div className="bg-neutral-900 border border-neutral-800 p-6 rounded-3xl text-white shadow-xl space-y-6 relative overflow-hidden">
+        <div className="absolute right-0 top-0 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+        
+        <div className="space-y-1">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-emerald-500/20 text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider">
+            ECO ROUTING SYSTEM
+          </span>
+          <h2 className="text-xl font-serif font-black tracking-tight text-white flex items-center gap-2">
+            📍 Destination Resource & Volunteer Router
+          </h2>
+          <p className="text-xs text-neutral-400 font-sans">
+            Enter a planning destination coordinates or select a major Lahore landmark to dynamically find the closest supply nurseries and registered volunteers for coordinate backup.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+          {/* Controls section (Span 5) */}
+          <div className="md:col-span-5 space-y-4 bg-neutral-950 p-5 rounded-2xl border border-neutral-850">
+            <div className="space-y-1">
+              <label className="text-[10px] font-mono uppercase tracking-wider text-neutral-455 font-bold">Landmark presets</label>
+              <select
+                id="preset-landmark-select"
+                onChange={(e) => handleLandmarkSelect(e.target.value)}
+                className="w-full px-3 py-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-xs text-neutral-300 focus:outline-none focus:border-emerald-500 cursor-pointer"
+              >
+                <option value="">-- Select Landmark Preset --</option>
+                {LAHORE_LANDMARKS.map(l => (
+                  <option key={l.name} value={l.name}>{l.name}</option>
+                ))}
+                <option value="custom">Custom Coordinates...</option>
+              </select>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono uppercase tracking-wider text-neutral-455 font-bold">Latitude *</label>
+                <input
+                  id="search-dest-lat"
+                  type="number"
+                  step="0.0001"
+                  value={destLat}
+                  onChange={(e) => {
+                    setDestLat(e.target.value);
+                    setDestinationName('Custom Coordinates');
+                  }}
+                  className="w-full px-3 py-2 rounded-xl bg-neutral-900 border border-neutral-800 text-xs font-mono text-emerald-400 focus:outline-none focus:border-emerald-500"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[10px] font-mono uppercase tracking-wider text-neutral-455 font-bold">Longitude *</label>
+                <input
+                  id="search-dest-lng"
+                  type="number"
+                  step="0.0001"
+                  value={destLng}
+                  onChange={(e) => {
+                    setDestLng(e.target.value);
+                    setDestinationName('Custom Coordinates');
+                  }}
+                  className="w-full px-3 py-2 rounded-xl bg-neutral-900 border border-neutral-800 text-xs font-mono text-emerald-400 focus:outline-none focus:border-emerald-500"
+                />
+              </div>
+            </div>
+
+            <button
+              id="btn-search-nearby-resources"
+              onClick={handleSearchNearby}
+              className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-450 active:bg-emerald-600 text-neutral-950 font-sans text-xs font-bold transition-all shadow-md cursor-pointer flex items-center justify-center gap-1.5"
+            >
+              <span>🔍 Scan Area Resources</span>
+            </button>
+          </div>
+
+          {/* Results section (Span 7) */}
+          <div className="md:col-span-7 space-y-4">
+            {searchTriggered ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Nurseries */}
+                <div className="space-y-3 bg-neutral-950/60 p-4 rounded-2xl border border-neutral-850">
+                  <div className="flex items-center justify-between border-b border-neutral-850 pb-2">
+                    <span className="text-[10.5px] font-mono font-bold text-emerald-400 uppercase">🏫 Closest Nurseries</span>
+                    <span className="text-[9px] font-mono text-neutral-550">Sorted by distance</span>
+                  </div>
+                  
+                  <div className="space-y-3 max-h-[220px] overflow-y-auto pr-1">
+                    {nearbyNurseries.slice(0, 2).map(({ nursery, distance }) => (
+                      <div key={nursery.id} className="text-xs space-y-1 border-b border-neutral-900/50 pb-2 last:border-0 last:pb-0">
+                        <div className="flex justify-between items-start">
+                          <strong className="text-neutral-200 font-bold text-[11px] truncate max-w-[140px] block">{nursery.name}</strong>
+                          <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[9px] px-1.5 py-0.5 rounded font-mono font-bold">{distance} km</span>
+                        </div>
+                        <p className="text-[10px] text-neutral-450 leading-relaxed font-sans">{nursery.address}</p>
+                        <div className="text-[9.5px] font-mono text-neutral-500 flex justify-between">
+                          <span>📞 {nursery.contactPhone}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Volunteers */}
+                <div className="space-y-3 bg-neutral-950/60 p-4 rounded-2xl border border-neutral-850">
+                  <div className="flex items-center justify-between border-b border-neutral-850 pb-2">
+                    <span className="text-[10.5px] font-mono font-bold text-teal-400 uppercase">👥 Nearby Stewards</span>
+                    <span className="text-[9px] font-mono text-neutral-550">Sorted by distance</span>
+                  </div>
+                  
+                  <div className="space-y-3 max-h-[220px] overflow-y-auto pr-1">
+                    {nearbyVolunteers.slice(0, 3).map(({ user, distance }) => (
+                      <div key={user.userId} className="text-xs space-y-1 border-b border-neutral-900/50 pb-2 last:border-0 last:pb-0">
+                        <div className="flex justify-between items-start">
+                          <strong className="text-neutral-200 font-bold text-[11px] block">{user.name}</strong>
+                          <span className="bg-teal-500/10 text-teal-400 border border-teal-500/20 text-[9px] px-1.5 py-0.5 rounded font-mono font-bold">{distance} km</span>
+                        </div>
+                        <div className="text-[10px] text-neutral-400 font-sans flex items-center justify-between">
+                          <span>🏫 {user.institution || 'GCU Lahore'}</span>
+                          <span className="text-neutral-500">{user.treesPlanted} planted</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="h-full min-h-[160px] flex flex-col justify-center items-center text-center p-6 border-2 border-dashed border-neutral-850 rounded-2xl text-neutral-500">
+                <span className="text-2xl mb-1.5">🗺️</span>
+                <h4 className="text-xs font-bold text-neutral-350 font-sans">No search conducted yet</h4>
+                <p className="text-[10.5px] text-neutral-500 max-w-sm mt-1 leading-normal">
+                  Select a destination landmark or type custom coordinates, then click "Scan Area Resources" to query spatial assets.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* NEW: Featured Indigenous Saplings segment for educational value */}
