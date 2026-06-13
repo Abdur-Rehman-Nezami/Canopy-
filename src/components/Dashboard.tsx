@@ -90,7 +90,7 @@ export default function Dashboard({ drives, nurseries, currentUser, onJoinDrive,
             <Leaf className="w-3.5 h-3.5 animate-pulse" /> CLIMATE RESTORE DEPLOYMENT
           </span>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black tracking-tight text-white leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
-            Nurture Tomorrow’s Canopy, <span className="text-emerald-300 font-sans italic font-normal">Starting Today</span>
+            Nurture Tomorrow’s KARAM Green Program, <span className="text-emerald-300 font-sans italic font-normal">Starting Today</span>
           </h1>
           <p className="text-neutral-100 font-sans text-sm md:text-base leading-relaxed font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             Join student collectives in mapping localized deforested zones, matching native sapling stockpiles, launching weekend planting drives, and earning environmental stewardship score badges.
@@ -319,7 +319,7 @@ export default function Dashboard({ drives, nurseries, currentUser, onJoinDrive,
                     {/* Progress Indicator */}
                     <div className="space-y-1.5 pt-1">
                       <div className="flex justify-between text-[11px] font-mono">
-                        <span className="text-neutral-500">CANOPY LANDING PROGRESS</span>
+                        <span className="text-neutral-500">KARAM GREEN PROGRAM LANDING PROGRESS</span>
                         <span className="text-neutral-800 font-bold">{drive.plantedTrees} / {drive.targetTrees} TREES ({progressPct}%)</span>
                       </div>
                       <div className="w-full h-2 rounded-full bg-neutral-100 overflow-hidden">

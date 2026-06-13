@@ -191,7 +191,7 @@ export default function Leaderboard({ teams }: LeaderboardProps) {
             {/* Range slider 3: Spots Identified */}
             <div className="space-y-2">
               <div className="flex justify-between font-mono text-xs">
-                <span>⚠️ Canopy Deficit Coords Catalogued (+100 PTS/SPOT)</span>
+                <span>⚠️ KARAM Green Program Deficit Coords Catalogued (+100 PTS/SPOT)</span>
                 <span className="text-emerald-400 font-bold">{simNeeds} coordinate zones</span>
               </div>
               <input 

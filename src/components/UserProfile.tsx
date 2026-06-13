@@ -54,7 +54,7 @@ export default function UserProfile({ currentUser, drives, onDonate }: UserProfi
   // Find user joined drives details
   const joinedDrivesDetails = drives.filter(d => currentUser.joinedDrives.includes(d.id));
 
-  // Determine Canopy Growth Stage visually
+  // Determine KARAM Green Program Growth Stage visually
   let growthStage = 'Sprout Seedling';
   let growthDesc = 'Begin volunteer drives to help your sprout emerge from the campus topsoil.';
   let growthImg = 'https://images.unsplash.com/photo-1515150144380-bca9f1650ed9?auto=format&fit=crop&q=80&w=300';
@@ -64,7 +64,7 @@ export default function UserProfile({ currentUser, drives, onDonate }: UserProfi
     growthDesc = 'Absolute Legend! Your roots stabilize the watershed, cooling urban zones.';
     growthImg = 'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&q=80&w=300';
   } else if (currentUser.treesPlanted >= 100) {
-    growthStage = 'Young Canopy Oak';
+    growthStage = 'Young KARAM Green Program Oak';
     growthDesc = 'Stunning progress! Your broad branches begin harboring songbirds and cooling streets.';
     growthImg = 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=80&w=300';
   } else if (currentUser.treesPlanted >= 50) {
@@ -113,7 +113,7 @@ export default function UserProfile({ currentUser, drives, onDonate }: UserProfi
         <div className="p-6 rounded-3xl bg-white border border-neutral-150 shadow-sm space-y-4">
           <div className="flex items-center gap-1.5 font-serif font-bold text-sm text-neutral-800">
             <Leaf className="w-4.5 h-4.5 text-emerald-500" />
-            <h3>Stewardship Canopy Progress</h3>
+            <h3>Stewardship KARAM Green Program Progress</h3>
           </div>
           
           <div className="rounded-2xl border border-neutral-150 overflow-hidden bg-neutral-50 flex items-center">

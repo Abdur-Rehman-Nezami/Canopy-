@@ -201,7 +201,7 @@ export const SEED_NEEDS: PlantationNeedSpot[] = [
   },
   {
     id: 'need_3',
-    title: 'Gulberg Boulevard Canopy Gap Restoration',
+    title: 'Gulberg Boulevard KARAM Green Program Gap Restoration',
     description: 'Local neighborhood avenue lost several heritage shade trees during recent bypass road expansion. We need to replant sturdy native Shisham or Amaltas seedlings to restore local shade.',
     latitude: 31.515,
     longitude: 74.350,

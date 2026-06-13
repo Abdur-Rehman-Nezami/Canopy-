@@ -37,7 +37,7 @@ interface PlantationMapProps {
 const PAKISTAN_LANDMARKS = [
   { id: 'l1', name: 'Punjab University Campus', latitude: 31.478, longitude: 74.298, icon: '🏫', desc: 'Vast academic green belt hosting experimental Shisham groves and student bird sanctuaries.', canopyPct: 82, heatIndex: '24°C Cool' },
   { id: 'l2', name: 'Bagh-e-Jinnah Botanical Reserve', latitude: 31.545, longitude: 74.331, icon: '💧', desc: 'Historic 141-acre garden in central Lahore with rare towering heritage trees.', canopyPct: 75, heatIndex: '25°C Temperate' },
-  { id: 'l3', name: 'Gymkhana Estate Canopy', latitude: 31.540, longitude: 74.341, icon: '🌳', desc: 'Lush bamboo and ancient peepal buffer spaces providing much needed local shade cooling.', canopyPct: 91, heatIndex: '22°C Ideal' },
+  { id: 'l3', name: 'Gymkhana Estate KARAM Green Program', latitude: 31.540, longitude: 74.341, icon: '🌳', desc: 'Lush bamboo and ancient peepal buffer spaces providing much needed local shade cooling.', canopyPct: 91, heatIndex: '22°C Ideal' },
   { id: 'l4', name: 'Lahore Canal Riparian Belt', latitude: 31.522, longitude: 74.360, icon: '🌊', desc: 'Delicate canal sub-channel banks vulnerable to severe rain weathering and silt deposits.', canopyPct: 35, heatIndex: '31°C Alert Grid' },
   { id: 'l5', name: 'Jallo Park Forest Groves', latitude: 31.560, longitude: 74.430, icon: '🌾', desc: 'Vast state-administered reserve forest holding hardy local seeds and native plant stocks.', canopyPct: 69, heatIndex: '26°C Balanced' }
 ];
@@ -197,7 +197,7 @@ export default function PlantationMap({
             <Layers className="w-3.5 h-3.5 text-neutral-500" /> Atmosphere Layer:
           </span>
           {[
-            { id: 'heat', label: '🌡️ Canopy Deficiency Heat' },
+            { id: 'heat', label: '🌡️ KARAM Green Program Deficiency Heat' },
             { id: 'satellite', label: '🛰️ Cyber Grid' },
             { id: 'classic', label: '🌳 Botanical Meadow' }
           ].map(styleOpt => (
@@ -381,7 +381,7 @@ export default function PlantationMap({
                   {selectedPin.type === 'landmark' ? (
                     <div className="space-y-2 bg-blue-50/50 p-3 rounded-2xl border border-blue-100 text-[11px] font-mono">
                       <div className="flex justify-between">
-                        <span className="text-neutral-400">Canopy Saturation:</span>
+                        <span className="text-neutral-400">KARAM Green Program Saturation:</span>
                         <strong className="text-blue-800 font-bold">{selectedPin.data.canopyPct}% (High Density)</strong>
                       </div>
                       <div className="flex justify-between">
@@ -479,7 +479,7 @@ export default function PlantationMap({
             
             {/* Display latitude/longitude feedback as user hovers */}
             <div className="text-[10px] font-mono py-0.5 px-2 bg-neutral-900 text-emerald-400 rounded-md border border-neutral-800">
-              Coordinate Bounds: Lahore North-Central Canopy System
+              Coordinate Bounds: Lahore North-Central KARAM Green Program System
             </div>
           </div>
 
@@ -729,7 +729,7 @@ export default function PlantationMap({
                   className="w-full px-3 py-2 rounded-xl bg-neutral-50 border border-neutral-250 text-xs focus:outline-none text-neutral-800 font-medium"
                 >
                   <option value="high">🌋 High Priority (Immediate soil erosion / complete soil dehydration)</option>
-                  <option value="medium">🍁 Medium Priority (Canopy thinning / missing continuous tree corridor)</option>
+                  <option value="medium">🍁 Medium Priority (KARAM Green Program thinning / missing continuous tree corridor)</option>
                   <option value="low">🌱 Low Priority (Esthetic local landscaping / ornamental gap filling)</option>
                 </select>
               </div>
